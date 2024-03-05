@@ -124,23 +124,27 @@ namespace Pract {
 		}
 	}
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
-		// find count of negative and positive numbers
 		int countPositive = 0;
 		int countNegative = 0;
-		array<String^>^ lines = richTextBox1->Text->Split('\n');
-		for (int i = 0; i < lines->Length; i++) {
-			if (lines[i] != "") {
-				int number = Convert::ToInt32(lines[i]);
-				if (number > 0) {
+		String^ text = richTextBox1->Text;
+		int i = 0;
+		while (i < text->Length) {
+			String^ number = "";
+			while (i < text->Length && text[i] != '\n') {
+				number += text[i];
+				i++;
+			}
+			i++;
+			if (number != "") {
+				if (Convert::ToInt32(number) > 0) {
 					countPositive++;
 				}
-				else if (number < 0) {
+				else if (Convert::ToInt32(number) < 0) {
 					countNegative++;
 				}
 			}
 		}
 		MessageBox::Show("Кількість додатніх чисел: " + countPositive + "\nКількість від'ємних чисел: " + countNegative);
-
 	}
 	};
 }
